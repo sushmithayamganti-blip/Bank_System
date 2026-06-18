@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking System - Secure & Reliable</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🏦 BankHub</h1>
+                </div>
+                <nav class="nav-menu">
+                    <button class="btn-logout" onclick="logout()">Logout</button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar Menu -->
+            <aside class="sidebar">
+                <div class="menu-title">Services</div>
+                <ul class="menu-list">
+                    <li><button class="menu-btn active" onclick="showForm('create-account')">📝 Create Account</button></li>
+                    <li><button class="menu-btn" onclick="showForm('view-account')">👁️ View Account</button></li>
+                    <li><button class="menu-btn" onclick="showForm('edit-account')">✏️ Edit Account</button></li>
+                    <li><button class="menu-btn" onclick="showForm('deposit')">💰 Deposit</button></li>
+                    <li><button class="menu-btn" onclick="showForm('withdraw')">🏧 Withdraw</button></li>
+                    <li><button class="menu-btn" onclick="showForm('check-balance')">💵 Check Balance</button></li>
+                    <li><button class="menu-btn" onclick="showForm('reset-password')">🔐 Reset Password</button></li>
+                    <li><button class="menu-btn" onclick="showForm('forgot-password')">❓ Forgot Password</button></li>
+                    <li><button class="menu-btn delete-btn" onclick="showForm('delete-account')">🗑️ Delete Account</button></li>
+                </ul>
+            </aside>
+
+            <!-- Forms Section -->
+            <section class="content">
+                <!-- Create Account Form -->
+                <div id="create-account" class="form-container active">
+                    <h2>Create New Account</h2>
+                    <form onsubmit="handleCreateAccount(event)">
+                        <div class="form-group">
+                            <label for="name">Full Name:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="age">Age:</label>
+                            <input type="number" id="age" name="age" min="18" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender">Gender:</label>
+                            <select id="gender" name="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Address:</label>
+                            <textarea id="address" name="address" rows="3" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="branch">Branch:</label>
+                            <select id="branch" name="branch" required>
+                                <option value="">Select Branch</option>
+                                <option value="Downtown">Downtown</option>
+                                <option value="Midtown">Midtown</option>
+                                <option value="Uptown">Uptown</option>
+                                <option value="Airport">Airport</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number:</label>
+                            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="aadhar">Aadhar Number:</label>
+                            <input type="number" id="aadhar" name="aadhar" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password:</label>
+                            <input type="password" id="confirm-password" name="confirm-password" required>
+                        </div>
+
+                        <button type="submit" class="btn-submit">Create Account</button>
+                    </form>
+                </div>
+
+                <!-- View Account Details -->
+                <div id="view-account" class="form-container">
+                    <h2>Account Details</h2>
+                    <div class="account-details" id="accountDetails">
+                        <p class="no-account">No account created yet.</p>
+                    </div>
+                    <button class="btn-secondary" onclick="showForm('create-account')">Create Account</button>
+                </div>
+
+                <!-- Edit Account Form -->
+                <div id="edit-account" class="form-container">
+                    <h2>Edit Account Details</h2>
+                    <form onsubmit="handleEditAccount(event)">
+                        <div class="form-group">
+                            <label for="edit-field">Select Field to Edit:</label>
+                            <select id="edit-field" name="edit-field" required onchange="updateEditField()">
+                                <option value="">Choose Field</option>
+                                <option value="name">Name</option>
+                                <option value="age">Age</option>
+                                <option value="gender">Gender</option>
+                                <option value="address">Address</option>
+                                <option value="branch">Branch</option>
+                                <option value="phone">Phone</option>
+                                <option value="email">Email</option>
+                            </select>
+                        </div>
+
+                        <div id="edit-input-container" class="form-group" style="display:none;">
+                            <label for="edit-value">New Value:</label>
+                            <input type="text" id="edit-value" name="edit-value">
+                        </div>
+
+                        <button type="submit" class="btn-submit">Update</button>
+                    </form>
+                </div>
+
+                <!-- Deposit Form -->
+                <div id="deposit" class="form-container">
+                    <h2>Deposit Money</h2>
+                    <form onsubmit="handleDeposit(event)">
+                        <div class="form-group">
+                            <label for="deposit-amount">Amount to Deposit:</label>
+                            <input type="number" id="deposit-amount" name="deposit-amount" min="1" step="0.01" required>
+                        </div>
+                        <button type="submit" class="btn-submit success">Deposit</button>
+                    </form>
+                </div>
+
+                <!-- Withdraw Form -->
+                <div id="withdraw" class="form-container">
+                    <h2>Withdraw Money</h2>
+                    <form onsubmit="handleWithdraw(event)">
+                        <div class="form-group">
+                            <label for="withdraw-amount">Amount to Withdraw:</label>
+                            <input type="number" id="withdraw-amount" name="withdraw-amount" min="1" step="0.01" required>
+                        </div>
+                        <button type="submit" class="btn-submit warning">Withdraw</button>
+                    </form>
+                </div>
+
+                <!-- Check Balance -->
+                <div id="check-balance" class="form-container">
+                    <h2>Check Account Balance</h2>
+                    <div class="balance-display" id="balanceDisplay">
+                        <p class="no-account">No account created yet.</p>
+                    </div>
+                </div>
+
+                <!-- Reset Password Form -->
+                <div id="reset-password" class="form-container">
+                    <h2>Reset Password</h2>
+                    <form onsubmit="handleResetPassword(event)">
+                        <div class="form-group">
+                            <label for="current-password">Current Password:</label>
+                            <input type="password" id="current-password" name="current-password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="new-password">New Password:</label>
+                            <input type="password" id="new-password" name="new-password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirm-new-password">Confirm New Password:</label>
+                            <input type="password" id="confirm-new-password" name="confirm-new-password" required>
+                        </div>
+
+                        <button type="submit" class="btn-submit">Update Password</button>
+                    </form>
+                </div>
+
+                <!-- Forgot Password Form -->
+                <div id="forgot-password" class="form-container">
+                    <h2>Forgot Password</h2>
+                    <form onsubmit="handleForgotPassword(event)">
+                        <div class="form-group">
+                            <label for="forgot-email">Registered Email:</label>
+                            <input type="email" id="forgot-email" name="forgot-email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="otp">Enter OTP:</label>
+                            <input type="number" id="otp" name="otp" placeholder="We'll send an OTP" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="new-forgot-password">New Password:</label>
+                            <input type="password" id="new-forgot-password" name="new-forgot-password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirm-forgot-password">Confirm Password:</label>
+                            <input type="password" id="confirm-forgot-password" name="confirm-forgot-password" required>
+                        </div>
+
+                        <button type="submit" class="btn-submit">Reset Password</button>
+                    </form>
+                </div>
+
+                <!-- Delete Account -->
+                <div id="delete-account" class="form-container">
+                    <h2>Delete Account</h2>
+                    <div class="warning-box">
+                        <p><strong>⚠️ Warning:</strong> This action cannot be undone. All your account data will be permanently deleted.</p>
+                    </div>
+                    <form onsubmit="handleDeleteAccount(event)">
+                        <div class="form-group">
+                            <label for="delete-confirm">Type "DELETE" to confirm:</label>
+                            <input type="text" id="delete-confirm" name="delete-confirm" required>
+                        </div>
+                        <button type="submit" class="btn-submit danger">Delete Account</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 BankHub. All rights reserved. Secure Banking Solutions.</p>
+        </footer>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
