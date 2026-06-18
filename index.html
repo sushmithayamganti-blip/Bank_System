@@ -35,6 +35,7 @@
                     <li><button class="menu-btn" onclick="showForm('reset-password')">🔐 Reset Password</button></li>
                     <li><button class="menu-btn" onclick="showForm('forgot-password')">❓ Forgot Password</button></li>
                     <li><button class="menu-btn delete-btn" onclick="showForm('delete-account')">🗑️ Delete Account</button></li>
+                    <li><button class="menu-btn" onclick="showForm('visitor-log')">📈 Visitor Log</button></li>
                 </ul>
             </aside>
 
@@ -241,6 +242,14 @@
                         </div>
                         <button type="submit" class="btn-submit danger">Delete Account</button>
                     </form>
+                </div>
+
+                <!-- Visitor Log -->
+                <div id="visitor-log" class="form-container">
+                    <h2>Visitor Log</h2>
+                    <div class="visitor-log" id="visitorLogContent">
+                        <p class="no-account">Loading visitor log...</p>
+                    </div>
                 </div>
             </section>
         </main>

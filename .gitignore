@@ -1,0 +1,5 @@
+# Ignore backend runtime storage
+account_data.json
+visitor_log.json
+__pycache__/
+*.pyc

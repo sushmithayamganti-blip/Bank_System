@@ -17,10 +17,13 @@ A modern, responsive HTML/CSS/JavaScript front-end for your banking system appli
 3. Data will reset when you refresh the page
 
 ### Option 2: With Python Backend (Advanced)
-To integrate with your Python backend:
-1. Set up a simple Python web server (Flask/Django)
-2. Create API endpoints for each operation
-3. Update the JavaScript fetch calls to point to your backend
+To use the provided Flask backend:
+1. Install dependencies: `pip install -r requirements.txt`
+2. Run the server: `python3 backend.py`
+3. Open `http://127.0.0.1:5000` in your browser
+
+The app now stores account data in `account_data.json` so data persists between refreshes.
+It also records visitor access data in `visitor_log.json` so you can see who accessed the site.
 
 ## 💼 Features
 
